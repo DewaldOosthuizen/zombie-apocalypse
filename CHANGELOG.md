@@ -30,7 +30,10 @@ For the full commit history see the repository log.
 - Added `scripts/verify.sh` for full local CI replication (gdlint + path guard + GUT tests)
 - Fixed `export_presets.cfg` using the Godot 3 container name `PoolStringArray` for both export
   presets' `patch_list` (Linux/X11 and Windows Desktop); replaced with the Godot 4 spelling
-  `PackedStringArray()`. Config-only change; no GDScript behaviour changed.
+  `PackedStringArray()`. Config-only change; no runtime behaviour changed.
+- Fixed `tests/test_tween_script.gd` calling `_on_tween_completed()` with two Godot 3 signal
+  arguments; the callback is connected to `tween.finished` and takes none. Also corrected the
+  expected `movement_position` to account for the direction reversal the callback performs.
 
 ## 0.2
 
