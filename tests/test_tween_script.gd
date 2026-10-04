@@ -49,27 +49,21 @@ func test_set_initial_movement_computes_correct_target_x():
 	assert_eq(_tween.movement_position, Vector2(150, 50),
 		"target X must be origin.x + distance * direction")
 
-# [ORCHESTRATOR NOTE] Pre-existing failure — unrelated to issue #58
-# Failure: Invalid call to function '_on_tween_completed' in base 'Node2D
-#   (generic_tween_script.gd)'. Expected 0 argument(s).
-# Suggested fix: scripts/generic_tween_script.gd:55 declares
-#   _on_tween_completed() with no parameters (it is connected to
-#   Tween.finished at line 24, which passes none), but these tests call it
-#   with two arguments (_on_tween_completed(null, "")). Change the two calls
-#   to _on_tween._on_tween_completed() to match the signal signature.
 func test_on_tween_completed_resets_running_flag():
 	_tween.tween_running = true
-	_tween._on_tween_completed(null, "")
+	_tween._on_tween_completed()
 	assert_false(_tween.tween_running,
 		"tween_running must be cleared after tween completes")
 
 func test_on_tween_completed_updates_movement_position():
-	_tween.move_direction_x = 1
+	# direction starts at -1 so that _on_tween_completed() flips it to +1 before
+	# computing the new target — matching a completed tween that overshoots left
+	_tween.move_direction_x = -1
 	_tween.move_direction_y = 0
 	_tween.move_distance_x = 50
 	_tween.move_distance_y = 0
 	_tween.position = Vector2(100, 100)
 	_tween.tween_running = true
-	_tween._on_tween_completed(null, "")
+	_tween._on_tween_completed()
 	assert_eq(_tween.movement_position, Vector2(150, 100),
 		"movement position must update after tween completes")
