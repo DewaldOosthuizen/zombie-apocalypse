@@ -18,37 +18,10 @@ func _ready():
 		print(":: " + type + " character spawned ::")
 
 
-# Override: ranger uses "run" not "walk" (asset naming difference)
-func _reset_character_sprite_states(_delta):
-	if player_sprite == null:
-		return
-	if (health <= 0):
-		_change_sprite_animation("dead")
-		repeat_frames = false
-		disable_gravity = false
-	elif (dazed):
-		_change_sprite_animation("idle")
-		disable_gravity = false
-	elif (action1 or action2 or action3):
-		if (!player_sprite.is_playing()):
-			action1 = false
-			action2 = false
-			action3 = false
-			repeat_frames = true
-			disable_gravity = false
-			if (movement_direction == 0):
-				_change_sprite_animation("idle")
-			else:
-				_change_sprite_animation("run")
-			_default_collision()
-	elif (!action1 and !action2 and !action3 and current_jump_count == 0):
-		_default_collision()
-		repeat_frames = true
-		if (movement_direction == 0):
-			_change_sprite_animation("idle")
-		else:
-			_change_sprite_animation("run")
-		disable_gravity = false
+# Ranger sprite sheets are Run*.png — no Walk sheet exists.
+# Override the animation name only; state-reset logic lives in the base class.
+func _get_run_animation_name() -> String:
+	return "run"
 
 
 func _physics_process(delta):

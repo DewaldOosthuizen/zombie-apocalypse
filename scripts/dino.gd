@@ -103,6 +103,13 @@ func _change_sprite_animation(animation_text):
 	player_sprite.animation = "dino_" + animation_text
 
 
+# INTENTIONAL DIVERGENCE — not duplication to be collapsed.
+# This override is behavioural, not a mere animation-name swap: it returns early
+# for dead/dazed, ticks _tail_swipe_timer on action2, silently clears
+# action1/action3, and holds a jump frame in the air. Its own "run" literals
+# below are correct for the dino assets (prefixed dino_ by the override above),
+# so this path deliberately does NOT use the base class's
+# _get_run_animation_name() hook.
 func _reset_character_sprite_states(delta):
 	if player_sprite == null:
 		return
