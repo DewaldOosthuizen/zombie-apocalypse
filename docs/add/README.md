@@ -11,6 +11,7 @@ ADDs record significant technical and design decisions made during the project's
 | ADD-002 | [Generic Behaviour Scripts](add-002-generic-behaviour-scripts.md) | Accepted |
 | ADD-003 | [Multi-Character World Scene Design](add-003-multi-character-design.md) | Accepted |
 | ADD-004 | [GUT Testing Approach](add-004-gut-testing-approach.md) | Accepted |
+| ADD-005 | [Dino Character Design](add-005-dino-character-design.md) | Accepted |
 
 ## Format
 
