@@ -149,14 +149,15 @@ func test_dino_tail_swipe_completion_plays_idle_when_stationary():
 		"A completed tail-swipe while stationary must play dino_idle")
 
 
-func test_dino_silences_action1_and_action3_immediately():
+func test_dino_silences_action1_immediately():
 	_dino.action1 = true
 	_dino._reset_character_sprite_states(0.016)
 	assert_false(_dino.action1, "action1 (shoot) is a no-op for dino and must be cleared")
 	assert_eq(_dino.player_sprite.animation, "dino_run",
 		"After silencing action1 the dino must fall back to dino_run")
 
-	_dino = _make_fresh_dino()
+
+func test_dino_silences_action3_immediately():
 	_dino.action3 = true
 	_dino._reset_character_sprite_states(0.016)
 	assert_false(_dino.action3, "action3 (slide) is a no-op for dino and must be cleared")
@@ -180,19 +181,3 @@ func test_dino_grounded_branch_resets_default_collision():
 	assert_true(_dino.repeat_frames, "The grounded dino branch must set repeat_frames")
 	assert_false(_dino.disable_gravity,
 		"The grounded dino branch must clear disable_gravity")
-
-
-func _make_fresh_dino():
-	var dino = _DinoProbe.new()
-	dino.player_sprite = AnimatedSprite2D.new()
-	dino.player_sprite.sprite_frames = _dino_frames()
-	dino.type = "dino"
-	dino.gender = ""
-	dino.health = 100
-	dino.dazed = false
-	dino.action1 = false
-	dino.action2 = false
-	dino.action3 = false
-	dino.current_jump_count = 0
-	dino.movement_direction = 1
-	return dino

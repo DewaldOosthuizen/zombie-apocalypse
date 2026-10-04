@@ -27,11 +27,13 @@ class _RunNameProbe extends _MovementNameProbe:
 
 
 var _probe
+var _sprite
 
 
 func before_each():
 	_probe = _MovementNameProbe.new()
-	_probe.player_sprite = AnimatedSprite2D.new()
+	_sprite = AnimatedSprite2D.new()
+	_probe.player_sprite = _sprite
 	_probe.type = "probe"
 	_probe.gender = "female"
 	_probe.health = 100
@@ -45,6 +47,7 @@ func before_each():
 
 func after_each():
 	_probe.free()
+	_sprite.free()
 
 
 func test_base_get_run_animation_name_defaults_to_walk():
@@ -93,7 +96,8 @@ func test_dazed_branch_wins_over_the_hook():
 
 func test_subclass_overriding_only_the_hook_yields_its_own_name():
 	var probe = _RunNameProbe.new()
-	probe.player_sprite = AnimatedSprite2D.new()
+	var sprite = AnimatedSprite2D.new()
+	probe.player_sprite = sprite
 	probe.type = "ranger"
 	probe.gender = "female"
 	probe.health = 100
@@ -107,13 +111,17 @@ func test_subclass_overriding_only_the_hook_yields_its_own_name():
 	assert_eq(probe.last_animation_name, "run",
 		"A subclass overriding only the hook must yield its own animation")
 	probe.free()
+	sprite.free()
 
 
 func test_ranger_overrides_the_hook_and_not_the_reset_method():
 	var ranger = _RANGER_SCRIPT.new()
+	var ranger_sprite = AnimatedSprite2D.new()
+	ranger.player_sprite = ranger_sprite
 	assert_eq(ranger._get_run_animation_name(), "run",
 		"ranger.gd must return \"run\" (its sprite sheets are Run*.png)")
 	var source = (_RANGER_SCRIPT as GDScript).source_code
 	assert_false(source.contains("func _reset_character_sprite_states"),
 		"ranger.gd must no longer define its own _reset_character_sprite_states")
 	ranger.free()
+	ranger_sprite.free()
