@@ -75,7 +75,7 @@ func test_take_damage_does_not_set_blood_when_invincible():
 
 func test_invincibility_timer_increments_while_invincible():
 	# Safe: only reads invincible_timer after delta — no player_sprite access
-	# because invincible_timer (0 + 0.1) does NOT exceed invincible_time (3)
+	# because invincible_timer (0 + 0.1) does NOT exceed DEFAULT_INVINCIBLE_TIME
 	_char.invincible = true
 	_char.invincible_timer = 0.0
 	_char.flicker_timer = 0.0
@@ -86,11 +86,11 @@ func test_invincibility_timer_increments_while_invincible():
 		"invincible_timer should increment by delta each frame")
 
 func test_invincibility_timer_resets_after_duration():
-	# player_sprite MUST be assigned — L173 executes player_sprite.visible = true
+	# player_sprite MUST be assigned — the reset branch executes player_sprite.visible = true
 	var stub_sprite = AnimatedSprite2D.new()
 	_char.player_sprite = stub_sprite
 	_char.invincible = true
-	_char.invincible_timer = 3.1   # already past invincible_time (3)
+	_char.invincible_timer = _CHAR_SCRIPT.DEFAULT_INVINCIBLE_TIME + 0.1   # already past invincible_time
 	_char.flicker_timer = 0.0
 	_char.blood = false            # guard against bloodParticle branch
 	_char._handle_timers(0.0)
