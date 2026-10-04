@@ -49,6 +49,17 @@ func test_set_initial_movement_computes_correct_target_x():
 	assert_eq(_tween.movement_position, Vector2(150, 50),
 		"target X must be origin.x + distance * direction")
 
+# [ORCHESTRATOR NOTE] Pre-existing failure — unrelated to issue #56
+# Failure: Invalid call to function '_on_tween_completed' in base 'Node2D
+#   (generic_tween_script.gd)'. Expected 0 argument(s).
+#   Affects: test_on_tween_completed_resets_running_flag,
+#            test_on_tween_completed_updates_movement_position
+# Suggested fix: the tests call `_on_tween_completed(null, "")` but
+#   scripts/generic_tween_script.gd:55 declares `func _on_tween_completed():`
+#   with zero parameters (it is connected to `tween.finished`). Align the call
+#   sites with the declared signature (or give the function the two optional
+#   parameters the tests assume) — a runtime-behaviour decision outside the
+#   scope of the config-only export_presets.cfg fix.
 func test_on_tween_completed_resets_running_flag():
 	_tween.tween_running = true
 	_tween._on_tween_completed(null, "")
