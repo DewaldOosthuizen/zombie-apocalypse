@@ -21,7 +21,7 @@ echo "Using Godot: $("$GODOT" --version 2>&1 | head -1)"
 echo "Running GUT tests headlessly..."
 
 "$GODOT" --headless \
-    -s addons/gut/gut_cmdln.gd \
+    -s addons/gut/addons/gut/gut_cmdln.gd \
     -gdir=res://tests \
     -gprefix=test_ \
     -gsuffix=.gd \

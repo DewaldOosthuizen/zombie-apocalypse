@@ -4,6 +4,14 @@ extends GutTest
 # a single virtual hook, _get_run_animation_name(), and both movement branches
 # of _reset_character_sprite_states() must go through it instead of a
 # hardcoded literal. Subclasses (ranger) override ONLY the getter.
+#
+# WHY THIS IS A SEPARATE FILE (tasks.md suggested tests/test_character_behaviour.gd):
+# gdtoolkit's gdlint enforces "max-public-methods: 20" per class, and
+# tests/test_character_behaviour.gd already declares 15 test methods before this
+# issue. Adding these cases there fails `gdlint scripts/ tests/` (the CI lint
+# scope in scripts/verify.sh). One focused file per concern keeps both the lint
+# budget and the specs satisfied. GUT picks this file up via the directory scan
+# in scripts/run_gut_tests.sh (-gdir=res://tests -gprefix=test_ -gsuffix=.gd).
 
 const _RANGER_SCRIPT = preload("res://scripts/ranger.gd")
 
