@@ -28,6 +28,9 @@ For the full commit history see the repository log.
   `"run"`; override in `ranger.gd` maps the animation name correctly
 - Fixed Ranger slide never stopping: set `loop = false` on slide animations
 - Added `scripts/verify.sh` for full local CI replication (gdlint + path guard + GUT tests)
+- Fixed `export_presets.cfg` using the Godot 3 container name `PoolStringArray` for both export
+  presets' `patch_list` (Linux/X11 and Windows Desktop); replaced with the Godot 4 spelling
+  `PackedStringArray()`. Config-only change; no runtime behaviour changed.
 
 ## 0.2
 
