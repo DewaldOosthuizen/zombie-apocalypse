@@ -51,17 +51,17 @@ func test_set_initial_movement_computes_correct_target_x():
 
 func test_on_tween_completed_resets_running_flag():
 	_tween.tween_running = true
-	_tween._on_tween_completed(null, "")
+	_tween._on_tween_completed()
 	assert_false(_tween.tween_running,
 		"tween_running must be cleared after tween completes")
 
 func test_on_tween_completed_updates_movement_position():
-	_tween.move_direction_x = 1
+	_tween.move_direction_x = -1
 	_tween.move_direction_y = 0
 	_tween.move_distance_x = 50
 	_tween.move_distance_y = 0
 	_tween.position = Vector2(100, 100)
 	_tween.tween_running = true
-	_tween._on_tween_completed(null, "")
+	_tween._on_tween_completed()
 	assert_eq(_tween.movement_position, Vector2(150, 100),
 		"movement position must update after tween completes")
