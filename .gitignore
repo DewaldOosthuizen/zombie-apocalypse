@@ -32,19 +32,15 @@ bin/Godot_v*
 .lh
 .history
 
-# BEGIN workspace-orchestrator
-.hermes_tmp_prompt.txt
-graphify-out/cache/
-.understand-anything/intermediate/
-.understand-anything/tmp/
-.understand-anything/diff-overlay.json
-.codegraph/*.db
-.codegraph/cache/
-openspec/
-# END workspace-orchestrator
 
 # Godot editor-local metadata (machine-specific paths, not part of the project)
 .godot/
 
 # Local machine app config (contains machine-specific paths; not project source)
 config/app_config.json
+# BEGIN workspace-orchestrator
+graphify-out/
+.understand-anything/
+.codegraph/
+openspec/
+# END workspace-orchestrator
