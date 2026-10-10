@@ -17,6 +17,10 @@ const LOW_HEALTH_THRESHOLD_PERCENT = 40
 const BULLET_OFFSET_X = 20
 const BULLET_OFFSET_Y = 5
 const PIT_DEATH_THRESHOLD = 900 # Y position below which a character is considered to have fallen into a pit
+const FLICKER_INTERVAL = 0.12 # seconds between flicker frames
+const BLOOD_PARTICLE_Y_OFFSET = 50 # pixels above the character origin when spawning blood particles
+const STATIONARY_VELOCITY_THRESHOLD = 0.2 # below this the character counts as airborne/stationary
+const DEFAULT_INVINCIBLE_TIME = 3 # seconds of invincibility after taking a hit
 
 # Export variables
 @export var max_jump_count = 1 # characters can only jump once by default
@@ -52,13 +56,14 @@ var movement_direction = 0 # direction in which the character is moving.
 var current_jump_count = 0 # checks if character is busy jumping; count = number of jumps
 
 var movement_multiplier = 800 # character movement multiplier
-var stationary_velocity = 0.2 # gravity sits at 0.22; anything under means character is in the air
+# gravity settles near 0.22 for a grounded character; anything under means the character is in the air
+var stationary_velocity = STATIONARY_VELOCITY_THRESHOLD # below this, treated as airborne
 
 # Timers
 var death_time = 3
 var death_timer = 0
 var flicker_timer = 0
-var invincible_time = 3
+var invincible_time = DEFAULT_INVINCIBLE_TIME
 var invincible_timer = 0
 var dazed_time = 2
 var dazed_timer = 0
@@ -169,7 +174,7 @@ func _tick_blood_timer():
 			var particle_effect = BLOOD_PARTICLE_SCENE.instantiate()
 			particle_effect.modulate = blood_colour
 			particle_effect.get_node(".").set_emitting(true)
-			particle_effect.position = self.get_position() - Vector2(0, 50)
+			particle_effect.position = self.get_position() - Vector2(0, BLOOD_PARTICLE_Y_OFFSET)
 			get_tree().root.add_child(particle_effect)
 
 
@@ -204,7 +209,7 @@ func _handle_death_state(delta):
 
 
 func _handle_flicker():
-	if (flicker_timer > 0.12 and health > 0):
+	if (flicker_timer > FLICKER_INTERVAL and health > 0):
 		if (shield_indicator):
 			# indicate shield has been depleted
 			if (player_sprite.modulate == Color("#ffffff")):

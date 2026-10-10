@@ -19,6 +19,7 @@ Architecture Decision Documents (ADDs) capture significant design and technical 
 - [ADD-002: Generic Behaviour Scripts](docs/add/add-002-generic-behaviour-scripts.md)
 - [ADD-003: Multi-Character World Scene Design](docs/add/add-003-multi-character-design.md)
 - [ADD-004: GUT Testing Approach](docs/add/add-004-gut-testing-approach.md)
+- [ADD-005: Dino Character Design](docs/add/add-005-dino-character-design.md)
 
 ## Migration to Godot 4
 This project has been updated from Godot 3 to Godot 4, including:
@@ -74,6 +75,7 @@ This project has been updated from Godot 3 to Godot 4, including:
 | Male Ninja     | Yes                | Full set                                      | Playable   |
 | Female Ranger  | Yes                | Dead, Idle, Jump, Melee, Run, Shoot, Slide    | Playable   |
 | Male Ranger    | Yes                | Dead, Idle, Jump, Run, Slide                  | Playable (Melee/Shoot falls back to female animations) |
+| Dino           | Yes                | Dead, Idle, Jump, Run, Walk, tail_swipe       | Playable (no shoot/slide; stomp + tail-swipe melee via ADD-005) |
 
 ![image](https://github.com/user-attachments/assets/d4f90d48-03f8-4e04-872e-633b077a57d1)
 
