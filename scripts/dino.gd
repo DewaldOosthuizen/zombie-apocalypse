@@ -134,12 +134,9 @@ func _reset_character_sprite_states(delta):
 			_tail_swipe_timer = 0.0
 			repeat_frames = true
 			disable_gravity = false
-			_default_collision()
-			if movement_direction == 0:
-				_change_sprite_animation("idle")
-			else:
-				_change_sprite_animation("run")
-		return  # do not fall through while swipe is active
+			_restore_default_collision()
+			_play_idle_or_run_animation("run")
+			return  # do not fall through while swipe is active
 
 	if action1 or action3:
 		# Silenced actions — clear immediately
@@ -147,11 +144,8 @@ func _reset_character_sprite_states(delta):
 		action3 = false
 		repeat_frames = true
 		disable_gravity = false
-		_default_collision()
-		if movement_direction == 0:
-			_change_sprite_animation("idle")
-		else:
-			_change_sprite_animation("run")
+		_restore_default_collision()
+		_play_idle_or_run_animation("run")
 		return
 
 	if current_jump_count > 0:
@@ -160,13 +154,10 @@ func _reset_character_sprite_states(delta):
 		return
 
 	# Grounded and idle/running
-	_default_collision()
+	_restore_default_collision()
 	repeat_frames = true
 	disable_gravity = false
-	if movement_direction == 0:
-		_change_sprite_animation("idle")
-	else:
-		_change_sprite_animation("run")
+	_play_idle_or_run_animation("run")
 
 
 # --- Melee override: activate hitbox for tail-swipe ----------------------

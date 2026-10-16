@@ -358,6 +358,29 @@ func _get_run_animation_name() -> String:
 	return "walk"
 
 
+# Restore the default collision shapes (standing, non-attack) after an action
+# or reset. Single semantic entry point over `_default_collision()` so that
+# subclasses and future callers funnel through one meaning rather than
+# invoking the raw mutator at every call site.
+func _restore_default_collision():
+	_default_collision()
+
+
+# Idle-vs-run selection: play "idle" when not moving, otherwise the supplied
+# run animation. When `run_animation_name` is empty, fall back to the base
+# `_get_run_animation_name()` hook, allowing subclasses (ranger, dino) to pin
+# their own name by overriding the hook or passing an explicit value (dino
+# passes "run" to avoid resolving to `dino_walk`).
+func _play_idle_or_run_animation(run_animation_name: String = ""):
+	var name = run_animation_name
+	if name.is_empty():
+		name = _get_run_animation_name()
+	if (movement_direction == 0):
+		_change_sprite_animation("idle")
+	else:
+		_change_sprite_animation(name)
+
+
 func _reset_character_sprite_states(_delta):
 	if player_sprite == null:
 		return
@@ -375,18 +398,12 @@ func _reset_character_sprite_states(_delta):
 			action3 = false
 			repeat_frames = true
 			disable_gravity = false
-			if (movement_direction == 0):
-				_change_sprite_animation("idle")
-			else:
-				_change_sprite_animation(_get_run_animation_name())
-			_default_collision()
+			_restore_default_collision()
+			_play_idle_or_run_animation()
 	elif (!action1 and !action2 and !action3 and current_jump_count == 0):
-		_default_collision()
+		_restore_default_collision()
 		repeat_frames = true
-		if (movement_direction == 0):
-			_change_sprite_animation("idle")
-		else:
-			_change_sprite_animation(_get_run_animation_name())
+		_play_idle_or_run_animation()
 		disable_gravity = false
 
 
