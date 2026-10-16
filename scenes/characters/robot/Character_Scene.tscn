@@ -107,9 +107,9 @@ func _ready():
 		velocity = Vector2(0, 0)
 		facing_direction = 1
 		movement_direction = 1
+		type = \"robot\"
 		super._change_sprite_animation(\"idle\")
 		bullet_scene = preload(\"res://scenes/characters/robot/Bullet_Scene.tscn\")
-		type = \"robot\"
 		blood_colour = Color(\"#0a0a0a\") # black
 		
 		super._emit_character_ready()
