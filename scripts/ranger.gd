@@ -20,6 +20,8 @@ func _ready():
 
 # Ranger sprite sheets are Run*.png — no Walk sheet exists.
 # Override the animation name only; state-reset logic lives in the base class.
+# Ranger inherits `_restore_default_collision()` and `_play_idle_or_run_animation()`
+# from generic_character_behaviour.gd without behavioural change.
 func _get_run_animation_name() -> String:
 	return "run"
 
