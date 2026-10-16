@@ -82,6 +82,24 @@ This project has been updated from Godot 3 to Godot 4, including:
   * Z      - shoot (female only; male falls back to female animation)
   * X      - melee (female only; male falls back to female animation)
 
+### GAMEPAD CONTROLS
+* MOVEMENT
+  * Left Stick / D-Pad Left   - move left
+  * Left Stick / D-Pad Right  - move right
+  * A / Cross                 - jump
+* ACTIONS
+  * RB / R1      - shoot (action_1)
+  * X / Square   - melee (action_2)
+  * B / Circle   - slide (action_3)
+  * Start        - respawn
+
+Keyboard mappings remain unchanged. Each playable character responds to the
+gamepad bindings of the actions it already implements:
+- Robot, Ninja: full set (action_1, action_2, action_3, movement, jump, respawn)
+- Ranger: full set; male ranger falls back to female shoot/melee animations
+- Dino: movement, jump, and action_2 (tail-swipe melee) only; does not
+  implement action_1 (shoot) or action_3 (slide)
+
 ## Characters
 
 | Character      | Scene file present | Animations available                          | Status     |
