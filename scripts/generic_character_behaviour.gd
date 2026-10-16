@@ -352,6 +352,12 @@ func _daze():
 	dazed = true
 
 
+# Virtual hook: subclasses override ONLY the movement animation name when their
+# sprite assets use a different name (e.g. ranger ships Run*.png, no Walk sheet).
+func _get_run_animation_name() -> String:
+	return "walk"
+
+
 func _reset_character_sprite_states(_delta):
 	if player_sprite == null:
 		return
@@ -372,7 +378,7 @@ func _reset_character_sprite_states(_delta):
 			if (movement_direction == 0):
 				_change_sprite_animation("idle")
 			else:
-				_change_sprite_animation("walk")
+				_change_sprite_animation(_get_run_animation_name())
 			_default_collision()
 	elif (!action1 and !action2 and !action3 and current_jump_count == 0):
 		_default_collision()
@@ -380,7 +386,7 @@ func _reset_character_sprite_states(_delta):
 		if (movement_direction == 0):
 			_change_sprite_animation("idle")
 		else:
-			_change_sprite_animation("walk")
+			_change_sprite_animation(_get_run_animation_name())
 		disable_gravity = false
 
 
