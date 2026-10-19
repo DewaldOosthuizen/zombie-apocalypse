@@ -3,8 +3,6 @@
 This file instructs AI agents (Hermes, GitHub Copilot, Codex, etc.) on how
 to orient themselves in this repository efficiently.
 
-<!-- graph-tools-start -->
-
 ## Code Exploration
 
 ### graphify
@@ -13,8 +11,8 @@ graphify-out/ not yet generated for this repo.
 
 ### understand-anything
 
-.understand-anything/knowledge-graph.json is present. Use it for layered architecture questions
-(layers, communities, entry points).
+.understand-anything/knowledge-graph.json is present. Use it for layered
+architecture questions (layers, communities, entry points).
 
 ```bash
 # Launch the interactive dashboard
@@ -30,8 +28,8 @@ skill: understand-chat
 
 ### codegraph
 
-.codegraph/ is present. Use it FIRST for any symbol lookup, call tracing, or targeted context
-gathering before opening source files.
+.codegraph/ is present. Use it FIRST for any symbol lookup, call tracing,
+or targeted context gathering before opening source files.
 
 ```bash
 codegraph context "<task description>" -p .   # focused file+symbol context
@@ -46,12 +44,8 @@ Decision order for code tasks:
   3. understand-anything — where in the architecture does this live?
   4. Read raw source    — only the 1-2 files that actually matter.
 
-<!-- graph-tools-end -->
+## Project Documentation
 
----
-
-## CI / CD
-
-Documentation for the CI/CD pipeline lives in [docs/index.md](docs/index.md).
-Authoritative rules (verification, review, conventions) live in
+All project documentation lives in [docs/](docs/index.md). The authoritative
+rules (verification, review, conventions) live in
 [openspec/config.yaml](openspec/config.yaml).

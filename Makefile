@@ -1,7 +1,7 @@
 # Makefile — single entry point for local verification, builds, and cleanup.
 #
 # Composes only commands and scripts that already exist and are documented in
-# README.md, CONTRIBUTING.md, .github/workflows/pr_gate.yml, and scripts/.
+# docs/, .github/workflows/pr_gate.yml, and scripts/.
 # No existing file is modified; this Makefile is purely a wrapper layer.
 #
 # Usage:
@@ -25,7 +25,7 @@ MAKEFLAGS += --no-builtin-rules
 # A bare `make` prints help instead of erroring.
 .DEFAULT_GOAL := help
 
-# Output directory for exported binaries (per README.md "Local Builds").
+# Output directory for exported binaries (per docs/building.md).
 BUILD_DIR := build
 
 # All targets are phony: none corresponds to a file on disk. The trailing
